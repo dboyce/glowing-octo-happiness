@@ -19,9 +19,16 @@ jobs:
     steps:
       - uses: actions/checkout@v2
       - run: |
+          git fetch origin
+          echo "$(git branch -r)"
           BRANCH=$(echo ${GITHUB_REF#refs/heads/})
-          STAGED=$(git branch -r --no-merged origin/staging | grep "${BRANCH}")
-          echo "::set-output name=staged::$([ -z ${STAGED} ] && echo 'false' || echo 'true'"
+          UNSTAGED=$(git branch -r --no-merged origin/staging | grep "${BRANCH}")
+          echo "::set-output name=staged::$([ -z ${UNSTAGED} ] && echo 'success' || echo 'pending')"
+        id: staging_check
+      - uses: ouzi-dev/commit-status-updater@v1.1.0
+        with:
+          name: staged
+          status: "${{ steps.staging_check.outputs.staged }}"  
           
       
       
