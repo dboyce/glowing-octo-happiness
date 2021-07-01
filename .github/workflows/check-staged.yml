@@ -9,7 +9,8 @@ on:
      - '**'
   pull_request:
     branches:
-     - '**' 
+     - '!master' 
+     - '!staging'
 
 # A workflow run is made up of one or more jobs that can run sequentially or in parallel
 jobs:
@@ -28,3 +29,11 @@ jobs:
       - name: Print branch name
         shell: bash
         run: echo "::set-output name=brunch::${{ steps.extract_branch.outputs.branch }}"
+      
+      - name: Check if staged
+        shell: bash
+        run: echo "::set-output name=staged::$(git branch -r --no-merged origin/staging | grep ${{ steps.extract_branch.outputs.branch }})"
+        
+
+      
+      
