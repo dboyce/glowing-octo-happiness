@@ -22,7 +22,7 @@ jobs:
           git fetch origin
           BRANCH=$(echo ${GITHUB_REF#refs/heads/})
           UNSTAGED=$(git branch -r --no-merged origin/staging | grep "${BRANCH}")
-          echo "::set-output name=staged::$([ -z ${UNSTAGED} ] && echo 'true' || echo 'false')"
+          echo "::set-output name=staged::$([ -z ${UNSTAGED} ] && echo 'success' || echo 'pending')"
         id: staging_check
       - uses: ouzi-dev/commit-status-updater@v1.1.0
         with:
