@@ -20,6 +20,7 @@ jobs:
       - uses: actions/checkout@v2
       - run: |
           git fetch origin
+          echo "$(git branch -r)"
           BRANCH=$(echo ${GITHUB_REF#refs/heads/})
           UNSTAGED=$(git branch -r --no-merged origin/staging | grep "${BRANCH}")
           echo "::set-output name=staged::$([ -z ${UNSTAGED} ] && echo 'success' || echo 'pending')"
