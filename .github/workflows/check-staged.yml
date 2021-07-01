@@ -21,7 +21,7 @@ jobs:
       - run: |
           BRANCH=$(echo ${GITHUB_REF#refs/heads/})
           STAGED=$(git branch -r --no-merged origin/staging | grep "${BRANCH}")
-          echo `::set-output name=staged::$([ -z "${STAGED}" ] && echo "false" || echo "true"`
+          echo "::set-output name=staged::$([ -z ${STAGED} ] && echo 'false' || echo 'true'"
           
       
       
