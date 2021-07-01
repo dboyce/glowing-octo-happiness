@@ -23,6 +23,11 @@ jobs:
           BRANCH=$(echo ${GITHUB_REF#refs/heads/})
           UNSTAGED=$(git branch -r --no-merged origin/staging | grep "${BRANCH}")
           echo "::set-output name=staged::$([ -z ${UNSTAGED} ] && echo 'true' || echo 'false')"
+        id: staging_check
+      - uses: ouzi-dev/commit-status-updater@v1.1.0
+        with:
+          name: staged
+          status: "${{ steps.staging_check.outputs.staged }}"  
           
       
       
