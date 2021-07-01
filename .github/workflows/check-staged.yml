@@ -2,7 +2,6 @@
 
 name: check-staged
 
-# Controls when the workflow will run
 on:
   push:
     branches:
@@ -11,29 +10,18 @@ on:
     branches:
      - '!master' 
      - '!staging'
-
-# A workflow run is made up of one or more jobs that can run sequentially or in parallel
 jobs:
-  # This workflow contains a single job called "build"
+
   build:
-    # The type of runner that the job will run on
     runs-on: ubuntu-latest
 
     # Steps represent a sequence of tasks that will be executed as part of the job
     steps:
-      - name: Extract branch name
-        shell: bash
-        run: echo "##[set-output name=branch;]$(echo ${GITHUB_REF#refs/heads/})"
-        id: extract_branch
-
-      - name: Print branch name
-        shell: bash
-        run: echo "::set-output name=brunch::${{ steps.extract_branch.outputs.branch }}"
-      
-      - name: Check if staged
-        shell: bash
-        run: cd /github/workspace && echo "::set-output name=staged::$(git branch -r --no-merged origin/staging | grep ${{ steps.extract_branch.outputs.branch }})"
-        
-
+      - uses: actions/checkout@v2
+      - run: |
+          BRANCH=$(echo ${GITHUB_REF#refs/heads/})
+          STAGED=$(git branch -r --no-merged origin/staging | grep "${BRANCH}")
+          echo `::set-output name=staged::$([ -z "${STAGED}" ] && echo "false" || echo "true"`
+          
       
       
