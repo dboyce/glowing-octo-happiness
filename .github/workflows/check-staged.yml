@@ -32,7 +32,7 @@ jobs:
       
       - name: Check if staged
         shell: bash
-        run: echo "::set-output name=staged::$(git branch -r --no-merged origin/staging | grep ${{ steps.extract_branch.outputs.branch }})"
+        run: cd /github/workspace && echo "::set-output name=staged::$(git branch -r --no-merged origin/staging | grep ${{ steps.extract_branch.outputs.branch }})"
         
 
       
