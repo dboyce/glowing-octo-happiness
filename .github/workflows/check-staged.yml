@@ -23,6 +23,10 @@ jobs:
           RELEASED="$(git branch -r --merged origin/master | sort)"
           CURRENTLY_STAGED="$(comm -23 <(echo "$STAGED") <(echo "$RELEASED"))"
           while IFS= read -r FB; do
-            echo "the feature branch ${FB} is currently in staging"
+            curl -u $GITHUB_USER_TOKEN \
+           --header "Content-Type: application/json" \
+           --data '{"state": "''", "context": "'$CHECK_CONTEXT'", "description": "'"$CHECK_MESSAGE"'", "target_url": "'$BUILD_URL'"}' \
+           --request POST \
+             https://api.github.com/repos/dboyce/glowing-octo-happiness/statuses/$COMMIT_SHA
           done <<< "$CURRENTLY_STAGED"
         id: staging_check
