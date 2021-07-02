@@ -22,8 +22,8 @@ jobs:
       - uses: actions/checkout@v2
       - run: |
           git fetch origin
-          echo "$(ls)"
-          echo "$(git branch -r)"
+          echo "?? $(ls)"
+          echo "?? $(git branch -r --merged origin/staging)"
           STAGED="$(git branch -r --merged origin/staging)"
           RELEASED="$(git branch -r --merged origin/master)"
           CURRENTLY_STAGED="$(comm -23 <(echo "$STAGED") <(echo "$RELEASED"))"
