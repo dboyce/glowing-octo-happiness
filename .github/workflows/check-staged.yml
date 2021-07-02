@@ -9,6 +9,9 @@ on:
 
   workflow_dispatch:     
   
+env:
+  GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}  
+  
 jobs:
 
   build:
@@ -23,7 +26,7 @@ jobs:
           RELEASED="$(git branch -r --merged origin/master | sort)"
           CURRENTLY_STAGED="$(comm -23 <(echo "$STAGED") <(echo "$RELEASED"))"
           while IFS= read -r FB; do
-            curl -u $GITHUB_TOKEN \
+            curl -u "${GITHUB_TOKEN}" \
            --header "Content-Type: application/json" \
            --data '{"state": "complete", "context": "staged"}' \
            --request POST \
