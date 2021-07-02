@@ -24,6 +24,13 @@ jobs:
           git fetch origin
           git checkout master
           git checkout staging
+          
+          echo "merged to staging $(git branch -r --merged staging)"
+          echo "merged to origin/staging $(git branch -r --merged origin/staging)"
+          
+          echo "not merged to staging $(git branch -r --no-merge staging)"
+          echo "not merged to origin/staging $(git branch -r --no-merge originstaging)"
+          
           STAGED="$(git branch -r --merged staging)"          
           RELEASED="$(git branch -r --merged master)"
           CURRENTLY_STAGED="$(comm -23 <(echo "$STAGED") <(echo "$RELEASED"))"
