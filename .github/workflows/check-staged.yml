@@ -29,7 +29,7 @@ jobs:
             curl \
            --header 'authorization: Bearer ${{ secrets.GITHUB_TOKEN }}' \
            --header "Content-Type: application/json" \
-           --data '{"state": "complete", "context": "staged"}' \
+           --data '{"state": "success", "context": "staged"}' \
            --request POST \
              "https://api.github.com/repos/dboyce/glowing-octo-happiness/statuses/$(git rev-list -n 1 $FB)"
           done <<< "$CURRENTLY_STAGED"
