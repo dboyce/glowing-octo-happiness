@@ -23,12 +23,14 @@ jobs:
       - run: |
           git fetch origin
           git checkout staging
+          git checkout master
+          git checkout staging
           echo "?? $(ls) $(git --version)"
           echo "not merged to staging $(git branch -r --no-merge staging)"
           echo ""
           echo "merged to staging $(git branch -r --merged staging)"
-          STAGED="$(git branch -r --merged origin/staging)"
-          RELEASED="$(git branch -r --merged origin/master)"
+          STAGED="$(git branch -r --merged staging)"          
+          RELEASED="$(git branch -r --merged master)"
           CURRENTLY_STAGED="$(comm -23 <(echo "$STAGED") <(echo "$RELEASED"))"
           echo "currently staged ${CURRENT_STAGED} released ${RELEASED}"
           while IFS= read -r FB; do
