@@ -26,10 +26,11 @@ jobs:
           RELEASED="$(git branch -r --merged origin/master | sort)"
           CURRENTLY_STAGED="$(comm -23 <(echo "$STAGED") <(echo "$RELEASED"))"
           while IFS= read -r FB; do
-            curl -u "dboyce:${GITHUB_TOKEN}" \
+            curl \
+           --header 'authorization: Bearer ${{ secrets.GITHUB_TOKEN }}' \
            --header "Content-Type: application/json" \
            --data '{"state": "complete", "context": "staged"}' \
            --request POST \
-             https://api.github.com/repos/dboyce/glowing-octo-happiness/statuses/$COMMIT_SHA
+             "https://api.github.com/repos/dboyce/glowing-octo-happiness/statuses/$(git rev-list -n 1 $FB)"
           done <<< "$CURRENTLY_STAGED"
         id: staging_check
