@@ -24,8 +24,8 @@ jobs:
           git fetch origin
           echo "$(ls)"
           echo "$(git branch -r)"
-          STAGED="$(git branch -r --merged origin/staging | sort)"
-          RELEASED="$(git branch -r --merged origin/master | sort)"
+          STAGED="$(git branch -r --merged origin/staging)"
+          RELEASED="$(git branch -r --merged origin/master)"
           CURRENTLY_STAGED="$(comm -23 <(echo "$STAGED") <(echo "$RELEASED"))"
           echo "currently staged ${CURRENT_STAGED} released ${RELEASED}"
           while IFS= read -r FB; do
