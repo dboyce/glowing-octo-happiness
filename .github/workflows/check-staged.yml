@@ -3,13 +3,14 @@
 name: check-staged
 
 on:
-  push:
-    branches:
-     - '**'
+
   pull_request:
     branches:
      - '!master' 
      - '!staging'
+
+  workflow_dispatch:     
+  
 jobs:
 
   build:
