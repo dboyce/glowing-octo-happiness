@@ -23,9 +23,9 @@ jobs:
           RELEASED="$(git branch -r --merged origin/master | sort)"
           CURRENTLY_STAGED="$(comm -23 <(echo "$STAGED") <(echo "$RELEASED"))"
           while IFS= read -r FB; do
-            curl -u $GITHUB_USER_TOKEN \
+            curl -u $GITHUB_TOKEN \
            --header "Content-Type: application/json" \
-           --data '{"state": "''", "context": "'$CHECK_CONTEXT'", "description": "'"$CHECK_MESSAGE"'", "target_url": "'$BUILD_URL'"}' \
+           --data '{"state": "complete", "context": "staged"}' \
            --request POST \
              https://api.github.com/repos/dboyce/glowing-octo-happiness/statuses/$COMMIT_SHA
           done <<< "$CURRENTLY_STAGED"
