@@ -35,7 +35,7 @@ jobs:
               --header "Content-Type: application/json" \
               --data '{"state": "success", "context": "staged"}' \
               --request POST \
-              "https://api.github.com/repos/dboyce/glowing-octo-happiness/statuses/$(git rev-list -n 1 $FB)"
+              "https://api.github.com/repos/dboyce/pull-request-staging-check-workflow/statuses/$(git rev-list -n 1 $FB)"
             fi  
           done <<< "$CURRENTLY_STAGED"
         shell: bash
