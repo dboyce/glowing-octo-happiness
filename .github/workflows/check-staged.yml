@@ -22,14 +22,9 @@ jobs:
       - uses: actions/checkout@v2
       - run: |
           git fetch origin
-          git checkout master
-          git checkout staging
           
-          echo "merged to staging $(git branch -r --merged staging)"
-          echo "merged to origin/staging $(git branch -r --merged origin/staging)"
-          
-          echo "not merged to staging $(git branch -r --no-merge staging)"
-          echo "not merged to origin/staging $(git branch -r --no-merge originstaging)"
+          echo "$(git rev-list origin/staging | head -n 1)"
+          echo "merged to staging $(git branch -r --merged origin/staging)"
           
           STAGED="$(git branch -r --merged staging)"          
           RELEASED="$(git branch -r --merged master)"
