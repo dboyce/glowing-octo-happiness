@@ -27,7 +27,7 @@ jobs:
           STAGED="$(git branch -r --merged staging)"          
           RELEASED="$(git branch -r --merged master)"
           CURRENTLY_STAGED="$(comm -23 <(echo "$STAGED") <(echo "$RELEASED"))"
-          echo "currently staged ${CURRENT_STAGED} released ${RELEASED}"
+          echo "currently staged ${STAGED} released ${RELEASED}"
           while IFS= read -r FB; do
             echo "updating status of $FB"
             #curl \
