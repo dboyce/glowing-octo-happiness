@@ -26,7 +26,7 @@ jobs:
           echo "?? $(ls) $(git --version)"
           echo "not merged to staging $(git branch -r --no-merge staging)"
           echo ""
-          echo merged to staging $(git branch -r --no-merge origin/staging)"
+          echo "merged to staging $(git branch -r --no-merge origin/staging)"
           STAGED="$(git branch -r --merged origin/staging)"
           RELEASED="$(git branch -r --merged origin/master)"
           CURRENTLY_STAGED="$(comm -23 <(echo "$STAGED") <(echo "$RELEASED"))"
