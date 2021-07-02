@@ -27,7 +27,7 @@ jobs:
           RELEASED="$(git branch -r --merged origin/master)"
           CURRENTLY_STAGED="$(comm -23 <(echo "$STAGED") <(echo "$RELEASED"))"
           while IFS= read -r FB; do
-            if [[ "${FB}" -ne "origin/staging" ]]; then
+            if [[ "${FB}" != "origin/staging" ]]; then
               echo "updating status of $FB"
               curl \
               --header 'authorization: Bearer ${{ secrets.GITHUB_TOKEN }}' \
