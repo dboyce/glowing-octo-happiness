@@ -26,8 +26,8 @@ jobs:
           echo "$(git rev-list origin/staging | head -n 1)"
           echo "merged to staging $(git branch -r --merged origin/staging)"
           
-          STAGED="$(git branch -r --merged staging)"          
-          RELEASED="$(git branch -r --merged master)"
+          STAGED="$(git branch -r --merged origin/staging)"          
+          RELEASED="$(git branch -r --merged origin/master)"
           CURRENTLY_STAGED="$(comm -23 <(echo "$STAGED") <(echo "$RELEASED"))"
           echo "currently staged ${STAGED} released ${RELEASED}"
           while IFS= read -r FB; do
